@@ -16,6 +16,7 @@
 <h1>Highlight test</h1>
 
 <h2>Plain <code>{`<pre>`}</code> and <code>{`<code>`}</code></h2>
+<p>Note the preseved line breaks.</p>
 <pre>
     <code>
 &lt;pre&gt;
@@ -27,8 +28,13 @@
 &lt;/pre&gt;
     </code>
 </pre>
+<p>The only way to prevent it is to remove the line breaks and whitespace between the tags and the content:</p>
+<pre><code>&lt;pre&gt;&lt;code&gt;&amp;lt;ul&amp;gt;
+    &amp;lt;li&amp;gt;Example&amp;lt;/li&amp;gt;
+&amp;lt;/ul&amp;gt;&lt;/code&gt;&lt;/pre&gt;</code></pre>
 
 <h2>WebComponent extending built-in <code>HTMLPreElement</code></h2>
+<p>Note that this won't work in Safari without a polyfill.</p>
 <pre is="highlight-builtin">
       <code>
 &lt;pre is=&quot;highlight-builtin&quot;&gt;
@@ -59,6 +65,8 @@
 </highlight-autonomous>
 
 <h2>Svelte + prerendered highlight.js</h2>
+<p>Note that these svelte components trim the superfluous newlines from the start and end of the code snippet, so the markup doesn't have the preserved newlines issue (even with JavaScript off).</p>
+<p>Also note that this is the only variant that has syntax highlighting when JavaScript is off.</p>
 <Highlight
     code={`
 <Highlight code={\`
