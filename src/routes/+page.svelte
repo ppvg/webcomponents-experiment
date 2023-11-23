@@ -7,6 +7,13 @@
         import("$lib/highlight-builtin.js");
         import("$lib/highlight-autonomous.js");
     });
+    let snippet = `<script>
+  import ShadowHighlight from "$lib/ShadowHighlight.svelte";
+  let snippet = "[redacted to avoid universe implosion]";
+<${'/'}script>
+<label for="snippet">Snippet</label>
+<textarea id="snippet" bind:value={snippet} rows="6" cols="80" />
+<ShadowHighlight code={snippet} />`;
 </script>
 
 <svelte:head>
@@ -99,11 +106,23 @@
 `}
 />
 
+<h2>Svelte + reactive content</h2>
+<p>Svelte components are automatically reactive.</p>
+<p>Note that the following example snippet works with <code>Highlight</code> or <code>ShadowHighlight</code>, but not <code>HighlightWC</code>. The internal Web Component doesn't update its shadow DOM when svelte updates the Web Component's real DOM children (although I'm sure that could be implemented with a <code>MutationObserver</code>).</p>
+<label for="snippet">Snippet:</label>
+<textarea id="snippet" bind:value={snippet} rows="6" cols="80" />
+<p>Result:</p>
+<ShadowHighlight code={snippet} />
+
 <style>
     :global(body) {
         font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
     h2 {
         font-size: 1.2rem;
+    }
+    textarea {
+      display: block;
+      margin-top: 1rem;
     }
 </style>
