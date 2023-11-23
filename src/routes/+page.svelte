@@ -9,7 +9,7 @@
     });
     let snippet = `<script>
   import ShadowHighlight from "$lib/ShadowHighlight.svelte";
-  let snippet = "[redacted to avoid universe implosion]";
+  let snippet = "<p>RuntimeException: infinite loop detected.</p>";
 <${'/'}script>
 <label for="snippet">Snippet</label>
 <textarea id="snippet" bind:value={snippet} rows="6" cols="80" />
@@ -28,17 +28,21 @@
     <code>
 &lt;pre&gt;
     &lt;code&gt;
-&amp;lt;ul&amp;gt;
-    &amp;lt;li&amp;gt;Example&amp;lt;/li&amp;gt;
-&amp;lt;/ul&amp;gt;
+&amp;lt;pre&amp;gt;
+    &amp;lt;code&amp;gt;
+&amp;amp;lt;p&amp;amp;gt;RuntimeException: infinite loop detected.&amp;amp;lt;/p&amp;amp;gt;
+    &amp;lt;/code&amp;gt;
+&amp;lt;/pre&amp;gt;
     &lt;/code&gt;
 &lt;/pre&gt;
     </code>
 </pre>
 <p>The only way to prevent it is to remove the line breaks and whitespace between the tags and the content:</p>
-<pre><code>&lt;pre&gt;&lt;code&gt;&amp;lt;ul&amp;gt;
-    &amp;lt;li&amp;gt;Example&amp;lt;/li&amp;gt;
-&amp;lt;/ul&amp;gt;&lt;/code&gt;&lt;/pre&gt;</code></pre>
+<pre><code>&lt;pre&gt;&lt;code&gt;&amp;lt;pre&amp;gt;
+    &amp;lt;code&amp;gt;
+&amp;amp;lt;p&amp;amp;gt;RuntimeException: infinite loop detected.&amp;amp;lt;/p&amp;amp;gt;
+    &amp;lt;/code&amp;gt;
+&amp;lt;/pre&amp;gt;&lt;/code&gt;&lt;/pre&gt;</code></pre>
 
 <h2>WebComponent extending built-in <code>HTMLPreElement</code></h2>
 <p>Note that this won't work in Safari without a polyfill.</p>
@@ -47,9 +51,11 @@
       <code>
 &lt;pre is=&quot;highlight-builtin&quot;&gt;
     &lt;code&gt;
-&amp;lt;ul&amp;gt;
-    &amp;lt;li&amp;gt;Example&amp;lt;/li&amp;gt;
-&amp;lt;/ul&amp;gt;
+&amp;lt;pre is=&amp;quot;highlight-builtin&amp;quot;&amp;gt;
+    &amp;lt;code&amp;gt;
+&amp;amp;lt;p&amp;amp;gt;RuntimeException: infinite loop detected.&amp;amp;lt;/p&amp;amp;gt;
+    &amp;lt;/code&amp;gt;
+&amp;lt;/pre&amp;gt;
     &lt;/code&gt;
 &lt;/pre&gt;
       </code>
@@ -62,9 +68,13 @@
 &lt;highlight-autonomous&gt;
     &lt;pre&gt;
         &lt;code&gt;
-&amp;lt;ul&amp;gt;
-    &amp;lt;li&amp;gt;Example&amp;lt;/li&amp;gt;
-&amp;lt;/ul&amp;gt;
+&amp;lt;highlight-autonomous&amp;gt;
+    &amp;lt;pre&amp;gt;
+        &amp;lt;code&amp;gt;
+&amp;amp;lt;p&amp;amp;gt;RuntimeException: infinite loop detected.&amp;amp;lt;/p&amp;amp;gt;
+        &amp;lt;/code&amp;gt;
+    &amp;lt;/pre&amp;gt;
+&amp;lt;/highlight-autonomous&amp;gt;
         &lt;/code&gt;
     &lt;/pre&gt;
 &lt;/highlight-autonomous&gt;
@@ -78,9 +88,9 @@
 <Highlight
     code={`
 <Highlight code={\`
-<ul>
-    <li>Example</li>
-</ul>
+<Highlight code={\\\`
+<p>RuntimeException: infinite loop detected.</p>
+\\\`} />
 \`} />
 `}
 />
@@ -89,9 +99,9 @@
 <ShadowHighlight
     code={`
 <ShadowHighlight code={\`
-<ul>
-    <li>Example</li>
-</ul>
+<ShadowHighlight code={\\\`
+<p>RuntimeException: infinite loop detected.</p>
+\\\`} />
 \`} />
 `}
 />
@@ -100,9 +110,9 @@
 <HighlightWC
     code={`
 <HighlightWC code={\`
-<ul>
-    <li>Example</li>
-</ul>
+<HighlightWC code={\\\`
+<p>RuntimeException: infinite loop detected.</p>
+\\\`} />
 \`} />
 `}
 />
