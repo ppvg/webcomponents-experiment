@@ -1,7 +1,7 @@
 <script>
     import { onMount } from "svelte";
     import hljs from "highlight.js";
-    import styles from "$css/highlight.css";
+    import styles from "$css/highlight.css?inline";
     import { trim } from "$lib/util.js";
 
     /** @type {HTMLDivElement} */
